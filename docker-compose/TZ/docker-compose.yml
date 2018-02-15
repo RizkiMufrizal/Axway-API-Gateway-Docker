@@ -1,0 +1,108 @@
+version: '2'
+services:
+
+    node1:
+        image: apim-tz_node1_redhat
+        links:
+        - cassandra-m
+        - cassandra-s1
+        - cassandra-s2
+        #volumes:
+        #  Configuring volume for Node Manager conf (modified using API Gateway Manager web application)
+        # -  node1_CONF_DATA:/opt/Axway/apigateway/conf
+        #  Configuring volume for Node Manager trace (modified using API Gateway Manager web application)
+        # -  node1_TRACE_DATA:/opt/Axway/apigateway/trace
+        #  Configuring volume for Node Manager logs (includes Domain and Transaction logs modified using API Gateway Manager web application)
+        # -  node1_LOGS_DATA:/opt/Axway/apigateway/logs
+        #  Configuring volume for Node Manager events (modified using API Gateway Manager web application)
+        # -  node1_EVENTS_DATA:/opt/Axway/apigateway/events
+        #  Configuring volume for API Gateway Group Configuration, data, logging and trace.
+        # -  node1_GROUP_DATA:/opt/Axway/apigateway/groups
+        #  Configuring volume for API Gateway user data eg. ActiveMQ, File-based filters, Ehcache etc
+        # -  node1_USER_DATA:/custom_path/to/userdata/
+        hostname: node1
+        environment:
+        - START_BACKOFF_SECS=180 # starts after Cassandra cluster and 60s after previous instance
+        - CASSANDRA_HOSTS=cassandra-m,cassandra-s1,cassandra-s2
+        - APIGW_LICENSE #To set the license run: export APIGW_LICENSE="$(cat /path/to/licenses/lic.lic | gzip | base64)" on the docker host
+        privileged: true
+        restart: on-failure:2
+        ports:
+            - "8075:8075"
+            - "8090:8090"
+            - "8080:8080"
+        extra_hosts:
+            - "node2:192.168.0.109"
+
+    cassandra-m:
+        image: cassandra_redhat
+        environment:
+        - START_BACKOFF_SECS=0 # prevents race between nodes joining the cluster
+        - SEEDS=cassandra-m
+        - MAX_HEAP_SIZE=1G
+        - HEAP_NEWSIZE=400m
+        #volumes:
+        #  Cassandra data volume
+        # -  cassandra-m_DATA:/opt/cassandra/data
+        #  Cassandra logs volume
+        # -  cassandra-m_LOGS:/opt/cassandra/logs
+        hostname: cassandra-m
+        restart: on-failure:2
+
+
+    cassandra-s1:
+        image: cassandra_redhat
+        environment:
+        - START_BACKOFF_SECS=60 # prevents race between nodes joining the cluster
+        - SEEDS=cassandra-m
+        - MAX_HEAP_SIZE=1G
+        - HEAP_NEWSIZE=400m
+        #volumes:
+        #  Cassandra data volume
+        # -  cassandra-s1_DATA:/opt/cassandra/data
+        #  Cassandra logs volume
+        # -  cassandra-s1_LOGS:/opt/cassandra/logs
+        hostname: cassandra-s1
+        restart: on-failure:2
+
+
+    cassandra-s2:
+        image: cassandra_redhat
+        environment:
+        - START_BACKOFF_SECS=120 # prevents race between nodes joining the cluster
+        - SEEDS=cassandra-m
+        - MAX_HEAP_SIZE=1G
+        - HEAP_NEWSIZE=400m
+        #volumes:
+        #  Cassandra data volume
+        # -  cassandra-s2_DATA:/opt/cassandra/data
+        #  Cassandra logs volume
+        # -  cassandra-s2_LOGS:/opt/cassandra/logs
+        hostname: cassandra-s2
+        restart: on-failure:2
+
+# volumes:
+#    node1_CONF_DATA:
+#        external: true
+#    node1_TRACE_DATA:
+#        external: true
+#    node1_LOGS_DATA:
+#        external: true
+#    node1_EVENTS_DATA:
+#        external: true
+#    node1_GROUP_DATA:
+#        external: true
+#    node1_USER_DATA:
+#        external: true
+#    cassandra-m_DATA:
+#        external: true
+#    cassandra-m_LOGS:
+#        external: true
+#    cassandra-s1_DATA:
+#        external: true
+#    cassandra-s1_LOGS:
+#        external: true
+#    cassandra-s2_DATA:
+#        external: true
+#    cassandra-s2_LOGS:
+#        external: true

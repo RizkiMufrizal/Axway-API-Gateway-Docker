@@ -1,0 +1,34 @@
+{
+    "description":"apim for DMZ with 3 cassandra",
+    "containers":[
+        {
+            "import": ["{compose-root}/tmpl/gwlatestnode.json"],
+            "name":"node2",
+            "hostname":"node2",
+            "gatewayConfig":{
+                "IP":"192.168.0.113",
+                "node":"node1",
+                "ANM":"192.168.0.113",
+                "isANM" : true,
+                "groups":[
+                    {
+                        "name":"MGMT_GROUP",
+                        "hasAPIManager":true,
+                        "readConsistencyLevel" : "QUORUM",
+                        "writeConsistencyLevel" : "QUORUM",
+                        "instances":[
+                            {
+                                "name":"MGMT_01"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            "cassandraConfig" : {
+            "_comment": "Reserved - do not modify this section.",
+                "seedHost":"node2"
+            }
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "description":"apim for TZ with 3 cassandra",
+    "containers":[
+        {
+            "import": ["{compose-root}/tmpl/gwlatestnode.json"],
+            "name":"node1",
+            "hostname":"node1",
+            "gatewayConfig":{
+                "IP":"192.168.0.109",
+                "node":"node2",
+                "ANM":"node1",
+                "isANM" : true,
+                "groups":[
+                    {
+                        "name":"INGT_GROUP",
+                        "hasAPIManager":false,
+                        "readConsistencyLevel" : "QUORUM",
+                        "writeConsistencyLevel" : "QUORUM",
+                        "instances":[
+                            {
+                                "name":"INGT_01"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            "cassandraConfig" : {
+            "_comment": "Reserved - do not modify this section.",
+                "seedHost":"node1"
+            }
+        }
+    ]
+}
