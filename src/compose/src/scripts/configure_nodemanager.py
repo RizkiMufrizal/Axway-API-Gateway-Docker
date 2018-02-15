@@ -112,13 +112,15 @@ Admin Host: %s""" % (hostname, options.gwdir, options.anm_host))
 
     if options.current_version <= "7.3.0" :
         execute(os.path.join(options.gwdir, "posix/bin/managedomain"), ["-a",
-            "--host", hostname, 
+            "--host", hostname,
+            "--port", options.port,
             "--remote_host", options.anm_host,
             "--username", options.username,
             "--password", options.password] + additionalArgs)
     else :
         execute(os.path.join(options.gwdir, "posix/bin/managedomain"), ["-a",
             "--host", hostname, 
+            "--port", options.port,
             "--anm_host", options.anm_host,
             "--username", options.username,
             "--password", options.password] + additionalArgs)
@@ -127,6 +129,7 @@ Admin Host: %s""" % (hostname, options.gwdir, options.anm_host))
     if options.secondary_anm :
         execute(os.path.join(options.gwdir, "posix/bin/managedomain"), ["--edit_host",
             "--host", hostname, 
+            "--port", options.port,
             "--username", options.username,
             "--password", options.password,
             "--is_admin", "1"])
