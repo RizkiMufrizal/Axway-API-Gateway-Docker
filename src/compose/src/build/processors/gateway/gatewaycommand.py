@@ -60,10 +60,13 @@ class ConfigureNodeManager(Command) :
         if anmContainer["name"] != container["name"] and container["gatewayConfig"].get("isANM", False) :
             additionalArgs.extend(["--secondary_anm"])
 
+	hostnameServer = container["gatewayConfig"]["IP"] + " " + container["gatewayConfig"]["node"]
+        os.system("docker exec " + container["runtime"] + " bash -c 'echo \"" + hostnameServer + "\" >> /etc/hosts'")
+
         scriptcmd = [
             "/scripts/configure_nodemanager.py", 
             "--gwdir", container["gatewayConfig"]["installPathCurrent"], 
-            "--anm_host", anmContainer["hostname"],
+            "--anm_host", container["gatewayConfig"]["ANM"],
             "--current_version", container["gatewayConfig"]["currentVersion"]
             ] + additionalArgs
         self.cmds.append((container["runtime"], scriptcmd, None))
