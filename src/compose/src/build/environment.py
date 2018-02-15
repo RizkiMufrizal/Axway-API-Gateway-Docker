@@ -58,6 +58,14 @@ class BuilderEnvironment(object) :
                 compose["hostname"] = container["hostname"]
                 image = container["image"]
 
+                isANM = container["gatewayConfig"]["isANM"]
+                if isANM:
+                    compose["ports"] = []
+                    compose["ports"].append("8075:8075")
+                    compose["ports"].append("8090:8090")
+                else:
+                    compose["ports"] = []
+
                 compose["volumes"] = self.standardTestVolumes
                 if "volumes" in container :
                     compose["volumes"].extend(container["volumes"])
