@@ -1,0 +1,32 @@
+{
+    "description":"Single node setup with API Manager.",
+
+    "containers":[
+        {
+            "import": ["{compose-root}/tmpl/gwlatestnode.json"],
+            "name":"node1",
+            "hostname":"node1",
+            "gatewayConfig":{
+                "isANM" : true,
+                "groups":[
+                    {
+                        "name":"GatewayGroup",
+                        "hasAPIManager":true,
+                        "readConsistencyLevel" : "QUORUM",
+                        "writeConsistencyLevel" : "QUORUM",
+                        "instances":[
+                            {
+                                "name":"GatewayInstance"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            "cassandraConfig" : {
+            "_comment": "Reserved - do not modify this section.",
+                "seedHost":"node1"
+            }
+        }
+    ]
+}

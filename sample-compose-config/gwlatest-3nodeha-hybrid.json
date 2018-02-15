@@ -1,0 +1,69 @@
+{
+    "description":"A 7.5.x (latest) three node HA setup with API Manager.",
+
+    "containers":[
+        {
+            "import": ["{compose-root}/tmpl/gwlatestnode.json"],
+            "name":"node1",
+            "hostname":"node1",
+            "gatewayConfig":{
+                "isANM":true,
+                "groups":[
+                    {
+                        "name":"GatewayGroup-1",
+                        "hasAPIManager":true,
+                        "readConsistencyLevel" : "QUORUM",
+                        "writeConsistencyLevel" : "QUORUM",
+                        "instances":[
+                            {
+                                "name":"GatewayInstance-1"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            "cassandraConfig" : {
+            "_comment": "Reserved - do not modify this section.",
+                "seedHost":"node1"
+            }
+        },
+        {
+            "import": ["{compose-root}/tmpl/gwlatestnode.json"],
+            "name":"node2",
+            "hostname":"node2",
+            "gatewayConfig":{
+                "isANM":true,
+                "groups":[
+                ]
+            }
+        },
+        {
+            "import": ["{compose-root}/tmpl/gwlatestnode.json"],
+            "name":"node3",
+            "hostname":"node3",
+            "gatewayConfig":{
+                "isANM":false,
+                "groups":[
+                    {
+                        "name":"GatewayGroup-1",
+                        "hasAPIManager":true,
+                        "readConsistencyLevel" : "QUORUM",
+                        "writeConsistencyLevel" : "QUORUM",
+                        "instances":[
+                            {
+                                "name":"GatewayInstance-2"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            "cassandraConfig" : {
+            "_comment": "Reserved - do not modify this section.",
+                "seedHost":"node1"
+            }
+        }
+    ]
+}
+

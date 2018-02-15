@@ -1,0 +1,22 @@
+{
+    "description":"A 7.5.x (latest) gateway.",
+    "image":"{API_GATEWAY_IMAGE_NAME}",
+    "name":null,
+    "hostname":null,
+    "links":[],
+    "gatewayConfig":{
+        "currentVersion":"7.5.x",
+        "installPathCurrent":"/opt/Axway/apigateway",
+        "isANM":false,
+        "groups":[
+
+        ]
+    },
+    "containerLifecycle" : {
+        "beforeCommit" : "StopAllVshell",
+        "buildRunCommand" : "tail -f /dev/null",
+        "commitChanges" : [
+            "CMD /scripts/launch.py"
+        ]
+    }
+}

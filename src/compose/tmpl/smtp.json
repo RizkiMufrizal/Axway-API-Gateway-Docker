@@ -1,0 +1,9 @@
+{
+    "description":"Simple SMTP Server",
+    "name":"smtp",
+    "hostname":"smtp",
+    "image":"smtp",
+    "containerLifecycle" : {
+        "noCommit" : true
+    }
+}

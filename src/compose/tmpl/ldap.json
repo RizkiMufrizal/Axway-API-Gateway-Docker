@@ -1,0 +1,9 @@
+{
+    "description":"ApacheDS LDAP Server",
+    "name":"ldap",
+    "hostname":"ldap",
+    "image":"ldap",
+    "containerLifecycle" : {
+        "beforeCommit" : "StopLdap"
+    }
+}

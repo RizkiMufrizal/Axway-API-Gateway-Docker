@@ -1,0 +1,42 @@
+FROM gwredhat
+
+MAINTAINER support@axway.com
+
+ENV TZ=Europe/Dublin
+ENV AXWAY_HOME=/opt/Axway
+ENV GWDIR=$AXWAY_HOME/apigateway
+ENV JAVA_HOME=$GWDIR/Linux.x86_64/jre
+
+COPY APIGateway_Install.run /APIGateway_Install.run
+RUN chmod u+x APIGateway_Install.run
+
+ADD lic.lic /
+ADD scripts /scripts
+
+RUN cd / && \
+./APIGateway_Install.run \
+--mode unattended \
+--unattendedmodeui none \
+--setup_type complete \
+--prefix $AXWAY_HOME/ \
+--licenseFilePath /lic.lic \
+--apimgmtLicenseFilePath /lic.lic \
+--analyticsLicenseFilePath /lic.lic \
+--firstInNewDomain 0 \
+--configureGatewayQuestion 0 \
+--nmStartupQuestion 0 \
+--enable-components nodemanager,apimgmt,cassandra \
+--disable-components analytics,apitester,policystudio,configurationstudio,qstart \
+--startCassandra 0 \
+--cassandraInstalldir /opt \
+--cassandraJDK $GWDIR/platform/jre
+
+RUN rm APIGateway_Install.run
+
+ADD APIGateway_SP.tar.gz $GWDIR
+
+RUN cd $GWDIR && yes Y | sh apigw_sp_post_install.sh 
+
+EXPOSE 8065 8075 8080 8085 8089 8090 4444
+
+RUN  ln -s $JAVA_HOME/bin/java /usr/bin/java

@@ -1,0 +1,22 @@
+{
+    "description":"A 7.4.1 gateway.",
+    "image":"gw741",
+    "name":null,
+    "hostname":null,
+    "links":[],
+    "gatewayConfig":{
+        "currentVersion":"7.4.1",
+        "installPathCurrent":"/opt/Axway/7.4.1/apigateway",
+        "isANM":false,
+        "groups":[
+
+        ]
+    },
+    "containerLifecycle" : {
+        "beforeCommit" : "StopAllVshell",
+        "buildRunCommand" : "tail -f /dev/null",
+        "commitChanges" : [
+            "CMD /scripts/launch.py"
+        ]
+    }
+}

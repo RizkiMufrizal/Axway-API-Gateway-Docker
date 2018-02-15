@@ -1,0 +1,12 @@
+{
+    "description":"Empty linux container",
+    "name":"gwlinux",
+    "hostname":"gwlinux",
+    "image":"gwlinux",
+    "containerLifecycle" : {
+        "buildRunCommand" : "tail -f /dev/null",
+        "commitChanges" : [
+            "CMD /scripts/launch.py"
+        ]
+    }
+}

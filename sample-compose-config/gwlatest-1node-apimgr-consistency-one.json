@@ -1,0 +1,32 @@
+{
+    "description":"Single node setup with API Manager. Consistency level is set to one to be used with single Cassandra node (Only for demos)",
+
+    "containers":[
+        {
+            "import": ["{compose-root}/tmpl/gwlatestnode.json"],
+            "name":"node1",
+            "hostname":"node1",
+            "gatewayConfig":{
+                "isANM" : true,
+                "groups":[
+                    {
+                        "name":"GatewayGroup",
+                        "hasAPIManager":true,
+                        "readConsistencyLevel" : "ONE",
+                        "writeConsistencyLevel" : "ONE",
+                        "instances":[
+                            {
+                                "name":"GatewayInstance"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            "cassandraConfig" : {
+            "_comment": "Reserved - do not modify this section.",
+                "seedHost":"node1"
+            }
+        }
+    ]
+}

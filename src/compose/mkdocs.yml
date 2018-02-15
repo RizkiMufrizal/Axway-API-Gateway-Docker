@@ -1,0 +1,7 @@
+site_name: Axway Compose Documentation
+site_description: Automated creation of Dockerized API Gateway topologies.
+theme: readthedocs
+pages:
+- Home: index.md
+- Schema: schema.md
+- Design: design.md

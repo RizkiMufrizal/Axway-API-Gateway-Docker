@@ -1,0 +1,9 @@
+{
+  "description":"Simple Apache Server with proxy banlancer",
+  "name":"apachelb",
+  "hostname":"apachelb",
+  "image":"apachelb",
+  "containerLifecycle" : {
+    "noCommit" :true
+  }
+}
