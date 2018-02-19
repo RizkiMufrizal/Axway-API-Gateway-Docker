@@ -158,8 +158,9 @@ class BuilderEngine(Engine) :
                     options.extend(["-c", change])
 
         # export then import to flatten the image
-        dockerExport(runtime, tarAbsPath)
-        dockerImport(tarAbsPath, imageName, options)
+        # dockerExport(runtime, tarAbsPath)
+        # dockerImport(tarAbsPath, imageName, options)
+        dockerCommit(runtime, imageName, options)
 
         return (imageName, name, container)
 
