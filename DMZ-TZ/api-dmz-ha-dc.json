@@ -3,12 +3,12 @@
     "containers":[
         {
             "import": ["{compose-root}/tmpl/gwlatestnode.json"],
-            "name":"node2",
-            "hostname":"node2",
+            "name":"node1",
+            "hostname":"node1",
             "gatewayConfig":{
-                "IP":"192.168.0.113",
-                "node":"node1",
-                "ANM":"192.168.0.113",
+                "IP":"192.168.0.109",
+                "node":"node3",
+                "ANM":"node1",
                 "isANM" : true,
                 "port": "8090",
                 "groups":[
@@ -28,17 +28,17 @@
 
             "cassandraConfig" : {
             "_comment": "Reserved - do not modify this section.",
-                "seedHost":"node2"
+                "seedHost":"node1"
             }
         },
         {
             "import": ["{compose-root}/tmpl/gwlatestnode.json"],
-            "name":"node3",
-            "hostname":"node3",
+            "name":"node2",
+            "hostname":"node2",
             "gatewayConfig":{
-                "IP":"192.168.0.113",
-                "node":"node1",
-                "ANM":"192.168.0.113",
+                "IP":"192.168.0.109",
+                "node":"node3",
+                "ANM":"node1",
                 "isANM" : false,
                 "port": "8190",
                 "groups":[
@@ -58,7 +58,7 @@
 
             "cassandraConfig" : {
             "_comment": "Reserved - do not modify this section.",
-                "seedHost":"node2"
+                "seedHost":"node1"
             }
         }
     ]
