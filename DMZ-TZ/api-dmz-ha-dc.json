@@ -7,7 +7,7 @@
             "hostname":"node1",
             "gatewayConfig":{
                 "IP":"192.168.0.109",
-                "node":"node3",
+                "node":"node4",
                 "ANM":"node1",
                 "isANM" : true,
                 "port": "8090",
@@ -37,7 +37,7 @@
             "hostname":"node2",
             "gatewayConfig":{
                 "IP":"192.168.0.109",
-                "node":"node3",
+                "node":"node4",
                 "ANM":"node1",
                 "isANM" : false,
                 "port": "8190",
@@ -50,6 +50,36 @@
                         "instances":[
                             {
                                 "name":"MGMT_02"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            "cassandraConfig" : {
+            "_comment": "Reserved - do not modify this section.",
+                "seedHost":"node1"
+            }
+        },
+        {
+            "import": ["{compose-root}/tmpl/gwlatestnode.json"],
+            "name":"node3",
+            "hostname":"node3",
+            "gatewayConfig":{
+                "IP":"192.168.0.109",
+                "node":"node4",
+                "ANM":"node1",
+                "isANM" : false,
+                "port": "8290",
+                "groups":[
+                    {
+                        "name":"INTG_GROUP",
+                        "hasAPIManager":true,
+                        "readConsistencyLevel" : "QUORUM",
+                        "writeConsistencyLevel" : "QUORUM",
+                        "instances":[
+                            {
+                                "name":"INTG_01"
                             }
                         ]
                     }

@@ -3,8 +3,8 @@
     "containers":[
         {
             "import": ["{compose-root}/tmpl/gwlatestnode.json"],
-            "name":"node3",
-            "hostname":"node3",
+            "name":"node4",
+            "hostname":"node4",
             "gatewayConfig":{
                 "IP":"192.168.0.113",
                 "node":"node1",
@@ -28,13 +28,13 @@
 
             "cassandraConfig" : {
             "_comment": "Reserved - do not modify this section.",
-                "seedHost":"node3"
+                "seedHost":"node4"
             }
         },
         {
             "import": ["{compose-root}/tmpl/gwlatestnode.json"],
-            "name":"node4",
-            "hostname":"node4",
+            "name":"node5",
+            "hostname":"node5",
             "gatewayConfig":{
                 "IP":"192.168.0.113",
                 "node":"node1",
@@ -58,7 +58,37 @@
 
             "cassandraConfig" : {
             "_comment": "Reserved - do not modify this section.",
-                "seedHost":"node3"
+                "seedHost":"node4"
+            }
+        },
+        {
+            "import": ["{compose-root}/tmpl/gwlatestnode.json"],
+            "name":"node6",
+            "hostname":"node6",
+            "gatewayConfig":{
+                "IP":"192.168.0.113",
+                "node":"node1",
+                "ANM":"192.168.0.113",
+                "isANM" : false,
+                "port": "8290",
+                "groups":[
+                    {
+                        "name":"INTG_GROUP",
+                        "hasAPIManager":false,
+                        "readConsistencyLevel" : "QUORUM",
+                        "writeConsistencyLevel" : "QUORUM",
+                        "instances":[
+                            {
+                                "name":"INTG_02"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            "cassandraConfig" : {
+            "_comment": "Reserved - do not modify this section.",
+                "seedHost":"node4"
             }
         }
     ]
