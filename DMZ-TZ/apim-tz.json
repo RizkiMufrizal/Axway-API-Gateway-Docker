@@ -7,18 +7,49 @@
             "hostname":"node1",
             "gatewayConfig":{
                 "IP":"192.168.0.109",
-                "node":"node2",
+                "node":"node3",
                 "ANM":"node1",
-                "isANM" : true,
+                "isANM":true,
+                "port":"8090",
                 "groups":[
                     {
-                        "name":"INGT_GROUP",
+                        "name":"INTG_GROUP",
                         "hasAPIManager":false,
                         "readConsistencyLevel" : "QUORUM",
                         "writeConsistencyLevel" : "QUORUM",
                         "instances":[
                             {
-                                "name":"INGT_01"
+                                "name":"INTG_01"
+                            }
+                        ]
+                    }
+                ]
+            },
+
+            "cassandraConfig" : {
+            "_comment": "Reserved - do not modify this section.",
+                "seedHost":"node1"
+            }
+        },
+        {
+            "import": ["{compose-root}/tmpl/gwlatestnode.json"],
+            "name":"node2",
+            "hostname":"node2",
+            "gatewayConfig":{
+                "IP":"192.168.0.109",
+                "node":"node3",
+                "ANM":"node1",
+                "isANM":false,
+                "port":"8190",
+                "groups":[
+                    {
+                        "name":"INTG_GROUP",
+                        "hasAPIManager":false,
+                        "readConsistencyLevel" : "QUORUM",
+                        "writeConsistencyLevel" : "QUORUM",
+                        "instances":[
+                            {
+                                "name":"INTG_02"
                             }
                         ]
                     }
@@ -30,5 +61,6 @@
                 "seedHost":"node1"
             }
         }
+
     ]
 }
