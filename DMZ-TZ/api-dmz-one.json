@@ -6,9 +6,9 @@
             "name":"node1",
             "hostname":"node1",
             "gatewayConfig":{
-                "IP":"127.0.0.1",
+                "IP":"node1",
                 "node":"node1",
-                "ANM":"127.0.0.1",
+                "ANM":"node1",
                 "isANM" : true,
                 "port": "8090",
                 "groups":[
